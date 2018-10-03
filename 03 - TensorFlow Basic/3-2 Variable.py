@@ -5,8 +5,8 @@ print(X)
 
 x_data = [[1, 2, 3], [4, 5, 6]]
 W = tf.Variable(tf.random_normal([3, 2]))
-b = tf.Variable(tf.random_normal([3, 2]))
-expr = tf.matmul(X, W)
+b = tf.Variable(tf.random_normal([2, 1]))
+expr = tf.matmul(X, W) + b
 
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
