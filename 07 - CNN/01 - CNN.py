@@ -2,7 +2,7 @@
 import tensorflow as tf
 
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("./mnist/data/", one_hot=True)
+mnist = input_data.read_data_sets("./07 - CNN/mnist/data/", one_hot=True)
 
 #########
 # 신경망 모델 구성
@@ -23,7 +23,8 @@ W1 = tf.Variable(tf.random_normal([3, 3, 1, 32], stddev=0.01))
 L1 = tf.nn.conv2d(X, W1, strides=[1, 1, 1, 1], padding='SAME')
 L1 = tf.nn.relu(L1)
 # Pooling 역시 tf.nn.max_pool 을 이용하여 쉽게 구성할 수 있습니다.
-L1 = tf.nn.max_pool(L1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+L1 = tf.nn.max_pool(L1, ksize=[1, 2, 2, 1], strides=[
+                    1, 2, 2, 1], padding='SAME')
 # L1 = tf.nn.dropout(L1, keep_prob)
 
 # L2 Conv shape=(?, 14, 14, 64)
@@ -32,7 +33,8 @@ L1 = tf.nn.max_pool(L1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME'
 W2 = tf.Variable(tf.random_normal([3, 3, 32, 64], stddev=0.01))
 L2 = tf.nn.conv2d(L1, W2, strides=[1, 1, 1, 1], padding='SAME')
 L2 = tf.nn.relu(L2)
-L2 = tf.nn.max_pool(L2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+L2 = tf.nn.max_pool(L2, ksize=[1, 2, 2, 1], strides=[
+                    1, 2, 2, 1], padding='SAME')
 # L2 = tf.nn.dropout(L2, keep_prob)
 
 # FC 레이어: 입력값 7x7x64 -> 출력값 256
@@ -48,7 +50,8 @@ L3 = tf.nn.dropout(L3, keep_prob)
 W4 = tf.Variable(tf.random_normal([256, 10], stddev=0.01))
 model = tf.matmul(L3, W4)
 
-cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=model, labels=Y))
+cost = tf.reduce_mean(
+    tf.nn.softmax_cross_entropy_with_logits_v2(logits=model, labels=Y))
 optimizer = tf.train.AdamOptimizer(0.001).minimize(cost)
 # 최적화 함수를 RMSPropOptimizer 로 바꿔서 결과를 확인해봅시다.
 # optimizer = tf.train.RMSPropOptimizer(0.001, 0.9).minimize(cost)
@@ -88,6 +91,6 @@ print('최적화 완료!')
 is_correct = tf.equal(tf.argmax(model, 1), tf.argmax(Y, 1))
 accuracy = tf.reduce_mean(tf.cast(is_correct, tf.float32))
 print('정확도:', sess.run(accuracy,
-                        feed_dict={X: mnist.test.images.reshape(-1, 28, 28, 1),
-                                   Y: mnist.test.labels,
-                                   keep_prob: 1}))
+                       feed_dict={X: mnist.test.images.reshape(-1, 28, 28, 1),
+                                  Y: mnist.test.labels,
+                                  keep_prob: 1}))

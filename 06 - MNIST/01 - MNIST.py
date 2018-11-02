@@ -5,7 +5,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 # 텐서플로우에 기본 내장된 mnist 모듈을 이용하여 데이터를 로드합니다.
 # 지정한 폴더에 MNIST 데이터가 없는 경우 자동으로 데이터를 다운로드합니다.
 # one_hot 옵션은 레이블을 동물 분류 예제에서 보았던 one_hot 방식의 데이터로 만들어줍니다.
-mnist = input_data.read_data_sets("./mnist/data/", one_hot=True)
+mnist = input_data.read_data_sets("./06 - MNIST.py/mnist/data/", one_hot=True)
 
 #########
 # 신경망 모델 구성
@@ -32,7 +32,8 @@ W3 = tf.Variable(tf.random_normal([256, 10], stddev=0.01))
 # 최종 모델의 출력값은 W3 변수를 곱해 10개의 분류를 가지게 됩니다.
 model = tf.matmul(L2, W3)
 
-cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=model, labels=Y))
+cost = tf.reduce_mean(
+    tf.nn.softmax_cross_entropy_with_logits_v2(logits=model, labels=Y))
 optimizer = tf.train.AdamOptimizer(0.001).minimize(cost)
 
 #########
@@ -53,7 +54,8 @@ for epoch in range(15):
         # 지정한 크기만큼 학습할 데이터를 가져옵니다.
         batch_xs, batch_ys = mnist.train.next_batch(batch_size)
 
-        _, cost_val = sess.run([optimizer, cost], feed_dict={X: batch_xs, Y: batch_ys})
+        _, cost_val = sess.run([optimizer, cost], feed_dict={
+                               X: batch_xs, Y: batch_ys})
         total_cost += cost_val
 
     print('Epoch:', '%04d' % (epoch + 1),
@@ -70,5 +72,5 @@ print('최적화 완료!')
 is_correct = tf.equal(tf.argmax(model, 1), tf.argmax(Y, 1))
 accuracy = tf.reduce_mean(tf.cast(is_correct, tf.float32))
 print('정확도:', sess.run(accuracy,
-                        feed_dict={X: mnist.test.images,
-                                   Y: mnist.test.labels}))
+                       feed_dict={X: mnist.test.images,
+                                  Y: mnist.test.labels}))

@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 
-data = np.loadtxt('./data.csv', delimiter=',',
+data = np.loadtxt('./05 - TensorBoard, Saver/data.csv', delimiter=',',
                   unpack=True, dtype='float32')
 
 x_data = np.transpose(data[0:2])
@@ -50,14 +50,14 @@ with tf.name_scope('optimizer'):
 sess = tf.Session()
 saver = tf.train.Saver(tf.global_variables())
 
-ckpt = tf.train.get_checkpoint_state('./model')
+ckpt = tf.train.get_checkpoint_state('./05 - TensorBoard, Saver/model')
 if ckpt and tf.train.checkpoint_exists(ckpt.model_checkpoint_path):
     saver.restore(sess, ckpt.model_checkpoint_path)
 else:
     sess.run(tf.global_variables_initializer())
 
 merged = tf.summary.merge_all()
-writer = tf.summary.FileWriter('./logs', sess.graph)
+writer = tf.summary.FileWriter('./05 - TensorBoard, Saver/logs', sess.graph)
 
 for step in range(100):
     sess.run(train_op, feed_dict={X: x_data, Y: y_data})
@@ -68,7 +68,7 @@ for step in range(100):
     summary = sess.run(merged, feed_dict={X: x_data, Y: y_data})
     writer.add_summary(summary, global_step=sess.run(global_step))
 
-saver.save(sess, './model/dnn.ckpt', global_step=global_step)
+saver.save(sess, './05 - TensorBoard, Saver/model/dnn.ckpt', global_step=global_step)
 
 #########
 # 결과 확인

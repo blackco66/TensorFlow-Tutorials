@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("./mnist/data/", one_hot=True)
+mnist = input_data.read_data_sets("./06 - MNIST/mnist/data/", one_hot=True)
 
 #########
 # 신경망 모델 구성
