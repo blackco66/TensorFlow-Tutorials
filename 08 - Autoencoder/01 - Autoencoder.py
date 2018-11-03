@@ -4,7 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("./mnist/data/", one_hot=True)
+mnist = input_data.read_data_sets(
+    "./08 - Autoencoder/mnist/data/", one_hot=True)
 
 #########
 # 옵션 설정
@@ -31,7 +32,7 @@ b_encode = tf.Variable(tf.random_normal([n_hidden]))
 # sigmoid(X * W + b)
 # 인코더 레이어 구성
 encoder = tf.nn.sigmoid(
-                tf.add(tf.matmul(X, W_encode), b_encode))
+    tf.add(tf.matmul(X, W_encode), b_encode))
 
 # encode 의 아웃풋 크기를 입력값보다 작은 크기로 만들어 정보를 압축하여 특성을 뽑아내고,
 # decode 의 출력을 입력값과 동일한 크기를 갖도록하여 입력과 똑같은 아웃풋을 만들어 내도록 합니다.
@@ -41,7 +42,7 @@ b_decode = tf.Variable(tf.random_normal([n_input]))
 # 디코더 레이어 구성
 # 이 디코더가 최종 모델이 됩니다.
 decoder = tf.nn.sigmoid(
-                tf.add(tf.matmul(encoder, W_decode), b_decode))
+    tf.add(tf.matmul(encoder, W_decode), b_decode))
 
 # 디코더는 인풋과 최대한 같은 결과를 내야 하므로, 디코딩한 결과를 평가하기 위해
 # 입력 값인 X 값을 평가를 위한 실측 결과 값으로하여 decoder 와의 차이를 손실값으로 설정합니다.
