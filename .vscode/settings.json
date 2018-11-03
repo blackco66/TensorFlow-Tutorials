@@ -3,6 +3,6 @@
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
     "editor.formatOnType": true,
-    "python.pythonPath": "C:\\Python36\\python.exe",
+    "python.pythonPath": "C:\\Users\\%username%\\Anaconda3\\envs\\tensorflow\\python.exe",
     "python.formatting.provider": "autopep8"
 }
