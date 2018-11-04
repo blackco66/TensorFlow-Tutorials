@@ -5,7 +5,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 # 텐서플로우에 기본 내장된 mnist 모듈을 이용하여 데이터를 로드합니다.
 # 지정한 폴더에 MNIST 데이터가 없는 경우 자동으로 데이터를 다운로드합니다.
 # one_hot 옵션은 레이블을 동물 분류 예제에서 보았던 one_hot 방식의 데이터로 만들어줍니다.
-mnist = input_data.read_data_sets("./06 - MNIST.py/mnist/data/", one_hot=True)
+mnist = input_data.read_data_sets("./06 - MNIST/mnist/data/", one_hot=True)
 
 #########
 # 신경망 모델 구성
