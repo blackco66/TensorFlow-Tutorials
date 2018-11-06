@@ -1,8 +1,0 @@
-{
-    "editor.fontSize": 14,
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "editor.formatOnType": true,
-    "python.pythonPath": "C:\\Users\\blackco\\Anaconda3\\envs\\tensorflow\\python.exe",
-    "python.formatting.provider": "autopep8"
-}
