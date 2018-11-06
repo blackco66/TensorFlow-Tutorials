@@ -4,8 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets(
-    "./08 - Autoencoder/mnist/data/", one_hot=True)
+mnist = input_data.read_data_sets("./mnist/data/", one_hot=True)
 
 #########
 # 옵션 설정

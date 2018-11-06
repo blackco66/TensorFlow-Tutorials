@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("./06 - MNIST/mnist/data/", one_hot=True)
+mnist = input_data.read_data_sets("./mnist/data/", one_hot=True)
 
 #########
 # 신경망 모델 구성
@@ -26,7 +26,8 @@ L2 = tf.nn.dropout(L2, keep_prob)
 W3 = tf.Variable(tf.random_normal([256, 10], stddev=0.01))
 model = tf.matmul(L2, W3)
 
-cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=model, labels=Y))
+cost = tf.reduce_mean(
+    tf.nn.softmax_cross_entropy_with_logits_v2(logits=model, labels=Y))
 optimizer = tf.train.AdamOptimizer(0.001).minimize(cost)
 
 #########
@@ -62,9 +63,9 @@ print('최적화 완료!')
 is_correct = tf.equal(tf.argmax(model, 1), tf.argmax(Y, 1))
 accuracy = tf.reduce_mean(tf.cast(is_correct, tf.float32))
 print('정확도:', sess.run(accuracy,
-                        feed_dict={X: mnist.test.images,
-                                   Y: mnist.test.labels,
-                                   keep_prob: 1}))
+                       feed_dict={X: mnist.test.images,
+                                  Y: mnist.test.labels,
+                                  keep_prob: 1}))
 
 #########
 # 결과 확인 (matplot)

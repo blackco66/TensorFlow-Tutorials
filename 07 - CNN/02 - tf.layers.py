@@ -5,7 +5,7 @@
 import tensorflow as tf
 
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("./07 - CNN/mnist/data/", one_hot=True)
+mnist = input_data.read_data_sets("./mnist/data/", one_hot=True)
 
 #########
 # 신경망 모델 구성
