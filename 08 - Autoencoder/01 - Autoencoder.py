@@ -9,7 +9,7 @@ mnist = input_data.read_data_sets("./mnist/data/", one_hot=True)
 #########
 # 옵션 설정
 ######
-learning_rate = 0.01
+learning_rate = 0.07
 training_epoch = 20
 batch_size = 100
 # 신경망 레이어 구성 옵션

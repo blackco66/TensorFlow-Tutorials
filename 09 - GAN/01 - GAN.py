@@ -1,6 +1,7 @@
 # 2016년에 가장 관심을 많이 받았던 비감독(Unsupervised) 학습 방법인
 # Generative Adversarial Network(GAN)을 구현해봅니다.
 # https://arxiv.org/abs/1406.2661
+import time
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
@@ -44,9 +45,9 @@ D_b2 = tf.Variable(tf.zeros([1]))
 # 생성기(G) 신경망을 구성합니다.
 def generator(noise_z):
     hidden = tf.nn.relu(
-                    tf.matmul(noise_z, G_W1) + G_b1)
+        tf.matmul(noise_z, G_W1) + G_b1)
     output = tf.nn.sigmoid(
-                    tf.matmul(hidden, G_W2) + G_b2)
+        tf.matmul(hidden, G_W2) + G_b2)
 
     return output
 
@@ -54,9 +55,9 @@ def generator(noise_z):
 # 판별기(D) 신경망을 구성합니다.
 def discriminator(inputs):
     hidden = tf.nn.relu(
-                    tf.matmul(inputs, D_W1) + D_b1)
+        tf.matmul(inputs, D_W1) + D_b1)
     output = tf.nn.sigmoid(
-                    tf.matmul(hidden, D_W2) + D_b2)
+        tf.matmul(hidden, D_W2) + D_b2)
 
     return output
 
@@ -110,6 +111,7 @@ total_batch = int(mnist.train.num_examples/batch_size)
 loss_val_D, loss_val_G = 0, 0
 
 for epoch in range(total_epoch):
+    start_time = time.time()
     for i in range(total_batch):
         batch_xs, batch_ys = mnist.train.next_batch(batch_size)
         noise = get_noise(batch_size, n_noise)
@@ -122,7 +124,8 @@ for epoch in range(total_epoch):
 
     print('Epoch:', '%04d' % epoch,
           'D loss: {:.4}'.format(loss_val_D),
-          'G loss: {:.4}'.format(loss_val_G))
+          'G loss: {:.4}'.format(loss_val_G),
+          "--- %s seconds ---" % (time.time() - start_time))
 
     #########
     # 학습이 되어가는 모습을 보기 위해 주기적으로 이미지를 생성하여 저장
@@ -138,7 +141,8 @@ for epoch in range(total_epoch):
             ax[i].set_axis_off()
             ax[i].imshow(np.reshape(samples[i], (28, 28)))
 
-        plt.savefig('samples/{}.png'.format(str(epoch).zfill(3)), bbox_inches='tight')
+        plt.savefig('samples/{}.png'.format(str(epoch).zfill(3)),
+                    bbox_inches='tight')
         plt.close(fig)
 
 print('최적화 완료!')
